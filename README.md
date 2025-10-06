@@ -23,7 +23,7 @@ El módulo cumple con:
 
 El *backend* fue desarrollado en Python/Flask y simula el sistema BSS. Los datos son generados aleatoriamente (`random`) en cada llamada al *endpoint*.
 
-### `backend/app.py` - Puntos Clave del Código
+### `xtrim_api/app.py` - Puntos Clave del Código
 * **Simulación de Datos:** La función `make_mock_consumo()` genera datos aleatorios de consumo, simulando un sistema dinámico.
 * **CORS:** `CORS(app)` está habilitado para permitir la comunicación segura desde el Frontend de Angular (normalmente en el puerto 4200) al Backend (puerto 5000).
 * **Endpoints Implementados:**
