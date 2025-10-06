@@ -45,7 +45,7 @@ Se recomienda el uso de dos terminales separadas, una para el Backend y otra par
 
 ### 4.1. Configuración e Inicio del Backend (Flask)
 
-1.  **Navegar a la carpeta:** `cd backend/`
+1.  **Navegar a la carpeta:** `cd xtrim_api/`
 2.  **Crear y activar entorno virtual:** `python -m venv venv`
 3.  **Instalar dependencias:** `pip install Flask flask-cors` (y `random` / `datetime` son nativos).
 4.  **Iniciar el servidor:**
