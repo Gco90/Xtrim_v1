@@ -1,0 +1,118 @@
+<div class="container mt-5">
+    <h1 class="mb-4">Módulo de Auto-Gestión</h1>
+  <!-- <div class="card shadow-sm p-4"> -->
+    <!-- <h3 class="mb-3">Panel de Consumo - TelcoX</h3> -->
+
+    <div *ngIf="loading" class="text-center py-4">
+      <div class="spinner-border" role="status"></div>
+    </div>
+
+    <div *ngIf="!loading && consumo">
+
+        <div class="card p-4 mb-4 shadow-sm">
+            <h5 class="mb-2">Bienvenido(a), <strong>{{ consumo.cliente.nombre }}</strong></h5>
+            <small class="text-muted">Plan: {{ consumo.plan_actual }}</small>
+        </div>
+
+        <div class="row mb-5 text-center">
+            <div class="col-md-4 mb-3">
+                <div class="card p-3 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="text-muted text-uppercase mb-0">Saldo Actual</h6>
+                            <i class="bi bi-wallet-fill fs-4 text-primary"></i> 
+                        </div>
+                        <h2 class="text-primary fw-bold">${{ consumo.saldo_cuenta | number: '1.2-2' }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card p-3 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="text-muted text-uppercase mb-0">Próximo Corte</h6>
+                            <i class="bi bi-calendar-check-fill fs-4 text-secondary"></i>
+                        </div>
+                        <h2 class="text-dark fw-bold">{{ consumo.proximo_corte }}</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="card p-3 shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <h6 class="text-muted text-uppercase mb-0">Última Factura</h6>
+                            <i class="bi bi-receipt-cutoff fs-4 text-info"></i>
+                        </div>
+                        <h2 class="text-dark fw-bold">${{ consumo.ultima_factura | number: '1.2-2' }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card p-4 shadow">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <div>
+                    <h4 class="card-title mb-0">Panel de Consumo</h4>
+                    <small class="text-muted">Visualización en tiempo real</small>
+                </div>
+                <button class="btn btn-primary" (click)="cargar()">
+                    <i class="bi bi-arrow-clockwise me-2"></i>Actualizar Datos
+                </button>
+            </div>
+            <hr class="mb-4">
+
+            <div class="row">
+                <div class="col-md-4 text-center d-flex flex-column align-items-center justify-content-center">
+                    <h6 class="text-muted mb-3">Consumo de Datos Fijos/Móviles</h6>
+               
+                    <div class="circular-progress position-relative" 
+                         [style.--progress]="getDatosPercent()">
+                         
+                        <span class="progress-value">{{ getDatosPercent() }}% <small class="d-block">Usado</small></span>
+                        <div class="circle-inner"></div>
+                    </div> 
+                    <p class="mt-3 text-muted">{{ consumo.datos_gb | number: '1.1-1' }} GB / {{ consumo.datos_limite_gb | number: '1.0-0' }} GB</p>
+                </div>
+
+                <div class="col-md-8 d-flex flex-column justify-content-center">
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="mb-0">Minutos</h6>
+                            <span><strong>{{ consumo.minutos }}</strong> / {{ consumo.minutos_limite }} Minutos</span>
+                        </div>
+                        <div class="progress" style="height: 15px;">
+                            <div class="progress-bar bg-primary" role="progressbar" 
+                                [style.width.%]="(consumo.minutos / consumo.minutos_limite) * 100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="mb-0">SMS</h6>
+                            <span><strong [class.text-danger]="(consumo.sms/ consumo.sms_limite) * 100 > 80">{{ consumo.sms}}</strong> / {{ consumo.sms_limite }} SMS</span>
+                        </div>
+                        <div class="progress" style="height: 15px;">
+                            <div class="progress-bar" 
+                                [class.bg-danger]="(consumo.sms/ consumo.sms_limite) * 100 > 80"
+                                [class.bg-info]="(consumo.sms/ consumo.sms_limite) * 100 <= 80"
+                                role="progressbar" 
+                                [style.width.%]="(consumo.sms/ consumo.sms_limite) * 100">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-3 text-muted">
+                Última actualización: {{ consumo.ultima_actualizacion | date:'short' }}
+            </div>
+        </div>    
+    </div>
+
+    <div *ngIf="!loading && error" class="alert alert-danger mt-3">
+      {{ error }}
+    </div>
+  <!-- </div> -->
+</div>
+

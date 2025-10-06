@@ -1,0 +1,117 @@
+/* src/app/components/consumo-module/consumo-module.component.css */
+
+/* Generalidades */
+.container {
+    max-width: 1000px; /* Ancho máximo similar al de la imagen */
+}
+
+h1 {
+    font-weight: 700;
+    color: #343a40;
+}
+
+.card {
+    border: none;
+    border-radius: 0.75rem; /* Bordes más redondeados */
+}
+
+/* Estilo para las tarjetas de indicadores (Saldo, Corte, Factura) */
+.card h6 {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+}
+
+.card h2 {
+    font-size: 2.2rem;
+}
+
+/* Panel de Consumo */
+.panel-consumo h4 {
+    font-weight: 600;
+}
+
+/* --- Gráfico Circular de Progreso --- */
+.circular-progress {
+    width: 150px; /* Tamaño del círculo */
+    height: 150px;
+    border-radius: 50%;
+    background-color: #e9ecef; /* Color de fondo del círculo no rellenado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff; /* Color del texto del porcentaje */
+    position: relative;
+    overflow: hidden; /* Importante para el clipping */
+}
+
+.circular-progress .progress-value {
+    position: relative;
+    z-index: 2; /* Para que el texto esté encima del color de progreso */
+    background-color: #fff; /* Fondo blanco para el valor */
+    width: 80%; /* Tamaño del "agujero" central */
+    height: 80%;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    color: #007bff; /* Color del texto central */
+}
+
+.circular-progress .progress-value small {
+    font-size: 0.7rem;
+    font-weight: normal;
+    color: #6c757d;
+}
+
+/* Para crear el efecto de círculo relleno, usamos un pseudo-elemento y un background-conic-gradient */
+.circular-progress::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* CORRECCIÓN CLAVE: Usamos calc(var(--progress) * 1%) */
+    /* La variable 'var(--progress)' toma el número (ej. 75) y calc() lo convierte en porcentaje. */
+    /* El segundo punto (transparente) debe empezar exactamente donde termina el azul. */
+    background: conic-gradient(#007bff calc(var(--progress) *1%), transparent calc(var(--progress) *1%));
+    border-radius: 50%;
+    z-index: 1;
+}
+
+/* Colores para las barras de progreso */
+.progress-bar.bg-primary { background-color: #007bff !important; }
+.progress-bar.bg-info { background-color: #17a2b8 !important; }
+.progress-bar.bg-danger { background-color: #dc3545 !important; }
+.progress-bar.bg-success { background-color: #28a745 !important; }
+
+/* Ajustes para las etiquetas numéricas en las barras de progreso */
+.progress span strong {
+    font-weight: 700;
+}
+
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.text-info {
+    color: #17a2b8 !important; /* Para el color del próximo corte */
+}
+
+.text-secondary {
+    color: #6c757d !important; /* Para el color de la última factura */
+}
+
+/* Estilo para el botón de Actualizar Datos */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
